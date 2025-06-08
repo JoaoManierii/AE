@@ -7,6 +7,12 @@ PPC
 !./node_modules/.bin/
 !./node_modules/@types/
 /node_modules
+
+# Ignorar a pasta base em qualquer nível
+/base/
+base/
 /base
+base
+
 /knights-tour-visualizer/node_modules
 /backend/node_modules
