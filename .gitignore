@@ -7,3 +7,6 @@ PPC
 !./node_modules/.bin/
 !./node_modules/@types/
 /node_modules
+/base
+/knights-tour-visualizer/node_modules
+/backend/node_modules
