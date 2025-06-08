@@ -1,0 +1,25 @@
+{
+  "name": "ae",
+  "version": "1.0.0",
+  "description": "A Computação Bioinspirada é uma área de pesquisa que se baseia em conceitos biológicos para o desenvolvimento de algoritmos, sendo geralmente aplicados na solução de problemas de alta complexidade. Estes problemas podem ser resolvidos por meio de métodos determinísticos, porém, à medida que o tamanho da instância cresce, o custo computacional pode aumentar drasticamente. Neste sentido, os Algoritmos Evolutivos (AEs) são técnicas de otimização que têm se destacado.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoManierii/AE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JoaoManierii/AE/issues"
+  },
+  "homepage": "https://github.com/JoaoManierii/AE#readme",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "express": "^5.1.0"
+  }
+}

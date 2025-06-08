@@ -1,2 +1,9 @@
 .vscode/
 PPC
+
+# Ignore all files in the node_modules directory
+# except for the following files and directories
+./node_modules/
+!./node_modules/.bin/
+!./node_modules/@types/
+/node_modules
