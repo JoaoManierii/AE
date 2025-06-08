@@ -1,43 +1,69 @@
 /**
  * Serviço que implementa a funcionalidade do metricas.c
- * Esta é uma implementação básica que deve ser adaptada conforme as necessidades específicas
+ * Baseado na implementação em C para calcular métricas estatísticas
  */
 
 function calcularMetricas(params) {
   const {
-    dados = [],
-    tipoMetrica = 'padrao',
-    // Adicione outros parâmetros conforme necessário
+    execucoes = [],
+    algoritmo = 'PPC',  // PPC ou Genetico
+    // Parâmetros adicionais conforme necessário
   } = params;
 
-  // Implementação simulada do cálculo de métricas
-  // Esta implementação deve ser adaptada para refletir o comportamento do arquivo metricas.c
+  // Implementação baseada no arquivo metricas.c
+  // O arquivo original lê dados de um arquivo binário e calcula métricas
   
   const inicio = Date.now();
   
-  let resultado = {};
-  
-  // Simulação de cálculo de métricas básicas
-  if (dados.length > 0) {
-    const soma = dados.reduce((acc, val) => acc + val, 0);
-    const media = soma / dados.length;
-    const ordenados = [...dados].sort((a, b) => a - b);
-    const mediana = ordenados.length % 2 === 0 
-      ? (ordenados[ordenados.length/2 - 1] + ordenados[ordenados.length/2]) / 2
-      : ordenados[Math.floor(ordenados.length/2)];
-    
-    resultado = {
-      media,
-      mediana,
-      minimo: Math.min(...dados),
-      maximo: Math.max(...dados),
-      tamanhoAmostra: dados.length
-    };
-  } else {
-    resultado = {
-      erro: "Nenhum dado fornecido para cálculo"
+  // Verifica se há dados suficientes para calcular as métricas
+  if (!execucoes || execucoes.length === 0) {
+    return {
+      erro: "Nenhum dado fornecido para cálculo",
+      tempoExecucaoSegundos: "0.000"
     };
   }
+  
+  // Extrai os dados relevantes com base no tipo de algoritmo
+  const fitnessDados = execucoes.map(exec => exec.fitness || 0);
+  const tempoDados = execucoes.map(exec => parseFloat(exec.tempoExecucaoSegundos) || 0);
+  const geracaoDados = execucoes.map(exec => exec.geracoes || 0);
+  
+  // Calcula a média dos valores
+  const mediaFitness = fitnessDados.reduce((acc, val) => acc + val, 0) / fitnessDados.length;
+  const mediaTempo = tempoDados.reduce((acc, val) => acc + val, 0) / tempoDados.length;
+  const mediaGeracao = geracaoDados.reduce((acc, val) => acc + val, 0) / geracaoDados.length;
+  
+  // Calcula o desvio padrão do fitness
+  let desvioPadrao = 0;
+  for (let i = 0; i < fitnessDados.length; i++) {
+    desvioPadrao += Math.pow(fitnessDados[i] - mediaFitness, 2);
+  }
+  desvioPadrao = Math.sqrt(desvioPadrao / fitnessDados.length);
+  
+  // Calcula valores mínimos e máximos
+  const minFitness = Math.min(...fitnessDados);
+  const maxFitness = Math.max(...fitnessDados);
+  const minTempo = Math.min(...tempoDados);
+  const maxTempo = Math.max(...tempoDados);
+  
+  const resultado = {
+    algoritmo,
+    numeroExecucoes: execucoes.length,
+    fitness: {
+      media: mediaFitness,
+      desvioPadrao,
+      minimo: minFitness,
+      maximo: maxFitness
+    },
+    tempo: {
+      media: mediaTempo.toFixed(3),
+      minimo: minTempo.toFixed(3),
+      maximo: maxTempo.toFixed(3)
+    },
+    geracoes: {
+      media: Math.round(mediaGeracao),
+    }
+  };
   
   const fim = Date.now();
   

@@ -4,16 +4,16 @@
 
 ### POST /api/genetic/run
 
-Este endpoint é responsável por executar o algoritmo genético para encontrar uma frase alvo.
+Este endpoint é responsável por executar o algoritmo genético para encontrar uma frase alvo, baseado na implementação do arquivo `main.c`.
 
 #### Parâmetros
 
 ```json
 {
-  "fraseAlvo": "HELLO WORLD",
-  "populacao": 100,
-  "geracoes": 1000,
-  "mutacao": 10,
+  "fraseAlvo": "O Tejo tem grandes navios",
+  "populacao": 900,
+  "geracoes": 1800,
+  "mutacao": 15,
   "elitismo": 5,
   "torneio": 3
 }
@@ -27,8 +27,12 @@ Este endpoint é responsável por executar o algoritmo genético para encontrar 
 
 ```json
 {
-  "fraseMelhor": "HELLO WORLD",
+  "fraseMelhor": "O Tejo tem grandes navios",
+  "fraseAlvo": "O Tejo tem grandes navios",
   "fitnessMelhor": 0,
+  "geracaoConvergencia": 342,
+  "tamanhoPopulacao": 900,
+  "geracoesExecutadas": 342,
   "tempoExecucaoSegundos": "0.123"
 }
 ```
@@ -43,19 +47,22 @@ Este endpoint é responsável por executar o algoritmo genético para encontrar 
 }
 ```
 
-## PPC (Problema do Percurso do Cavalo)
+## PPC (Problema do Passeio do Cavalo)
 
 ### POST /api/ppc/execute
 
-Este endpoint é responsável por executar o algoritmo PPC para resolver o problema do percurso do cavalo.
+Este endpoint é responsável por executar o algoritmo genético para resolver o problema do passeio do cavalo, baseado na implementação do arquivo `PPC.c`.
 
 #### Parâmetros
 
 ```json
 {
-  "tamanhoPopulacao": 100,
-  "numeroGeracoes": 1000,
-  "taxaMutacao": 0.1
+  "tamanhoTabuleiro": 20,
+  "populacao": 1000,
+  "geracoes": 10000,
+  "mutacao": 15,
+  "elitismo": 10,
+  "torneio": 3
 }
 ```
 
@@ -67,8 +74,16 @@ Este endpoint é responsável por executar o algoritmo PPC para resolver o probl
 
 ```json
 {
-  "melhorSolucao": "Solução encontrada",
-  "valorFitness": 42.5,
+  "percursoCompleto": [
+    { "x": 3, "y": 5, "ordem": 1 },
+    { "x": 5, "y": 6, "ordem": 2 },
+    // ... outros movimentos
+  ],
+  "fitness": 42,
+  "tamanhoTabuleiro": 20,
+  "populacaoUtilizada": 1000,
+  "geracoes": 5432,
+  "percursoEncontrado": false,
   "tempoExecucaoSegundos": "1.234"
 }
 ```
@@ -87,14 +102,26 @@ Este endpoint é responsável por executar o algoritmo PPC para resolver o probl
 
 ### POST /api/metricas/calcular
 
-Este endpoint é responsável por calcular métricas estatísticas para um conjunto de dados.
+Este endpoint é responsável por calcular métricas estatísticas para resultados de execuções de algoritmos, baseado na implementação do arquivo `metricas.c`.
 
 #### Parâmetros
 
 ```json
 {
-  "dados": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  "tipoMetrica": "padrao"
+  "execucoes": [
+    {
+      "fitness": 42,
+      "geracoes": 5432,
+      "tempoExecucaoSegundos": "1.234"
+    },
+    {
+      "fitness": 38,
+      "geracoes": 4987,
+      "tempoExecucaoSegundos": "1.123"
+    },
+    // ... outras execuções
+  ],
+  "algoritmo": "PPC"
 }
 ```
 
@@ -106,11 +133,22 @@ Este endpoint é responsável por calcular métricas estatísticas para um conju
 
 ```json
 {
-  "media": 5.5,
-  "mediana": 5.5,
-  "minimo": 1,
-  "maximo": 10,
-  "tamanhoAmostra": 10,
+  "algoritmo": "PPC",
+  "numeroExecucoes": 10,
+  "fitness": {
+    "media": 40.2,
+    "desvioPadrao": 2.3,
+    "minimo": 38,
+    "maximo": 45
+  },
+  "tempo": {
+    "media": "1.178",
+    "minimo": "1.123",
+    "maximo": "1.234"
+  },
+  "geracoes": {
+    "media": 5210
+  },
   "tempoExecucaoSegundos": "0.005"
 }
 ```
