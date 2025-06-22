@@ -1,6 +1,6 @@
 # EndPoints - API
 
-## Algoritmo Genético
+## Algoritmo Genético.
 
 ### POST /api/genetic/run
 
