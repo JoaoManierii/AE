@@ -28,6 +28,7 @@ Problema Combinatório do Percurso do Cavalo.
 
 O código foi desenvolvido em linguagem C, sistema operacional Windows com auxílio da 
 ferramenta VSCode. As extensões usadas são descritas nos links abaixo:
+em breve vou mudar pra o ambiente node.js
 
 ```
 Name: C/C++
